@@ -7,6 +7,8 @@ import com.javaonlinecourse.b2lesson4.classwork.shop.ListOfItems;
 import com.javaonlinecourse.b2lesson4.classwork.shop.ShopHelper;
 import com.sun.deploy.util.SessionState;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -16,16 +18,16 @@ import java.util.Scanner;
  *          19.11.2016
  */
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception{
         Client client = new OrdinaryClient();
         System.out.println("Добро пожаловать в инет магазин!");
         System.out.println("Ваше количество денег: " + client.getMoney());
-        Scanner reader = new Scanner(System.in);
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         ListOfItems listOfItems = new ListOfItems(10);
         ArrayList<ShopItem> basket = new ArrayList<>();
 
         while (true){
-            String command = reader.next();
+            String command = bufferedReader.readLine();
 
             if (command.equals("exit"))
             {
@@ -38,20 +40,22 @@ public class Main {
             else if (command.equals("pick"))
             {
                 System.out.println("Выберите товар");
-                String pickItem = reader.next();
+                String pickItem = bufferedReader.readLine();
 
                 for (int i = 0; i < listOfItems.getNotebooks().length; i++) {
                     if (pickItem.equals(listOfItems.getNotebooks()[i].getName()))
                     {
                         basket.add(listOfItems.getNotebooks()[i]);
+                        System.out.println("Товар добавлен");
                         break;
                     }
                 }
 
                 for (int i = 0; i < listOfItems.getPrinters().length; i++) {
-                    if (pickItem.equals(listOfItems.getNotebooks()[i].getName()))
+                    if (pickItem.equals(listOfItems.getPrinters()[i].getName()))
                     {
-                        basket.add(listOfItems.getNotebooks()[i]);
+                        basket.add(listOfItems.getPrinters()[i]);
+                        System.out.println("Товар добавлен");
                         break;
                     }
                 }
@@ -82,8 +86,18 @@ public class Main {
                     if (sum > client.getMoney())
                     {
                         System.out.println("Вы не можете себе этого позволить");
+                        basket.clear();
                     } else {
                         client.setMoney( client.getMoney() - sum );
+                        System.out.println("Поздравляем с покупкой. Ваше количество денег: " + client.getMoney());
+
+                        basket.clear();
+
+                        if (client.getMoney() == 0)
+                        {
+                            System.out.println("Приходите к нам еще");
+                            break;
+                        }
                     }
                 }
             }
