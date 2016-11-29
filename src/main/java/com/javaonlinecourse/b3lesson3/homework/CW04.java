@@ -14,4 +14,12 @@ package com.javaonlinecourse.b3lesson3.homework;
  *
  */
 public class CW04 {
+    public static void main(String[] args) throws InterruptedException {
+        for (int i=60;i>=0;i--)
+        {  Thread.sleep(100);
+            System.out.println(i);
+        }
+
+        System.out.println("Ваше время истекло!");
+    }
 }
