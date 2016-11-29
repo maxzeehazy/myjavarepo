@@ -1,4 +1,9 @@
 package com.javaonlinecourse.b3lesson3.homework;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+
 
 /**
  * @author emitrohin
@@ -11,4 +16,15 @@ package com.javaonlinecourse.b3lesson3.homework;
  * Вывести строки на экран, каждую с новой строки и задом наперед.
  */
 public class CW03 {
+    public static void main(String[] args) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        ArrayList<String> list = new ArrayList<String>();
+        while (true) {
+            String s = reader.readLine();
+            if (s.equals("stop")) break;
+            else list.add(s);
+        }
+
+        for (String s : list) System.out.println(s);
+    }
 }
